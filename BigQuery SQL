@@ -1,0 +1,287 @@
+**BigQuery SQL code**
+
+--DATA CLEANING--
+--Verifiying primary key for analysis
+
+SELECT DISTINCT case_number, year
+FROM `bigquery-public-data.chicago_crime.crime`
+WHERE unique_key is NULL;
+--7505794 rows for case_number, 7506287 for unique_key
+--case_number can be tied to multiple unique_key primary keys
+--case_number will be primary key for analysis
+
+SELECT DISTINCT unique_key, year
+FROM `bigquery-public-data.chicago_crime.crime`
+WHERE case_number is NULL;
+--Four null case_number values, add NOT NULL to queries
+
+--ANNUAL TOTALS per Case Type--
+--Yearly Arrest Case Count
+SELECT COUNT(arrest) AS arrested_crime
+FROM `bigquery-public-data.chicago_crime.crime`
+WHERE arrest=TRUE AND case_number is NOT NULL 
+GROUP BY year
+ORDER BY year ASC;
+
+--Yearly Domestic Case Count
+SELECT COUNT(domestic) AS domestic_crime
+FROM `bigquery-public-data.chicago_crime.crime`
+WHERE domestic=TRUE AND case_number is NOT NULL 
+GROUP BY year
+ORDER BY year ASC;
+
+--Yearly Case Count
+SELECT COUNT(case_number) AS case_crime
+FROM `bigquery-public-data.chicago_crime.crime`
+WHERE case_number is NOT NULL 
+GROUP BY year
+ORDER BY year ASC;
+
+--SEASONAL CASE COUNTS BY QUARTER --
+--2018 Seasonal Case Counts
+
+SELECT COUNT(case_number) AS Q1_2018_Case_Total
+FROM `bigquery-public-data.chicago_crime.crime`
+WHERE date BETWEEN '2018-01-01' AND '2018-03-31 23:59:59.998' AND case_number is NOT NULL ;
+
+SELECT COUNT(case_number) AS Q2_2018_Case_Total
+FROM `bigquery-public-data.chicago_crime.crime`
+WHERE date BETWEEN '2018-04-01' AND '2018-06-30 23:59:59.998' AND case_number is NOT NULL;
+
+SELECT COUNT(case_number) AS Q3_2018_Case_Total
+FROM `bigquery-public-data.chicago_crime.crime`
+WHERE date BETWEEN '2018-07-01' AND '2018-09-30 23:59:59.998' AND case_number is NOT NULL;
+
+SELECT COUNT(case_number) AS Q4_2018_Case_Total
+FROM `bigquery-public-data.chicago_crime.crime`
+WHERE date BETWEEN '2018-10-01' AND '2018-12-31 23:59:59.998' AND case_number is NOT NULL;
+
+-- 2019 Seasonal Case Counts
+
+SELECT COUNT(case_number) AS Q1_2019_Case_Total
+FROM `bigquery-public-data.chicago_crime.crime`
+WHERE date BETWEEN '2019-01-01' AND '2019-03-31 23:59:59.998' AND case_number is NOT NULL;
+
+SELECT COUNT(case_number) AS Q2_2019_Case_Total
+FROM `bigquery-public-data.chicago_crime.crime`
+WHERE date BETWEEN '2019-04-01' AND '2019-06-30 23:59:59.998' AND case_number is NOT NULL;
+
+SELECT COUNT(case_number) AS Q3_2019_Case_Total
+FROM `bigquery-public-data.chicago_crime.crime`
+WHERE date BETWEEN '2019-07-01' AND '2019-09-30 23:59:59.998' AND case_number is NOT NULL;
+
+SELECT COUNT(case_number) AS Q4_2019_Case_Total
+FROM `bigquery-public-data.chicago_crime.crime`
+WHERE date BETWEEN '2019-10-01' AND '2019-12-31 23:59:59.998' AND case_number is NOT NULL;
+
+-- 2020 Seasonal Case Counts
+
+SELECT COUNT(case_number) AS Q1_2020_Case_Total
+FROM `bigquery-public-data.chicago_crime.crime`
+WHERE date BETWEEN '2020-01-01' AND '2020-03-31 23:59:59.998' AND case_number is NOT NULL;
+
+SELECT COUNT(case_number) AS Q2_2020_Case_Total
+FROM `bigquery-public-data.chicago_crime.crime`
+WHERE date BETWEEN '2020-04-01' AND '2020-06-30 23:59:59.998' AND case_number is NOT NULL;
+
+SELECT COUNT(case_number) AS Q3_2020_Case_Total
+FROM `bigquery-public-data.chicago_crime.crime`
+WHERE date BETWEEN '2020-07-01' AND '2020-09-30 23:59:59.998' AND case_number is NOT NULL;
+
+SELECT COUNT(case_number) AS Q4_2020_Case_Total
+FROM `bigquery-public-data.chicago_crime.crime`
+WHERE date BETWEEN '2020-10-01' AND '2020-12-31 23:59:59.998' AND case_number is NOT NULL;
+
+-- 2021 Seasonal Case Counts
+
+SELECT COUNT(case_number) AS Q1_2021_Case_Total
+FROM `bigquery-public-data.chicago_crime.crime`
+WHERE date BETWEEN '2021-01-01' AND '2021-03-31 23:59:59.998' AND case_number is NOT NULL;
+
+SELECT COUNT(case_number) AS Q2_2021_Case_Total
+FROM `bigquery-public-data.chicago_crime.crime`
+WHERE date BETWEEN '2021-04-01' AND '2021-06-30 23:59:59.998' AND case_number is NOT NULL;
+
+SELECT COUNT(case_number) AS Q3_2021_Case_Total
+FROM `bigquery-public-data.chicago_crime.crime`
+WHERE date BETWEEN '2021-07-01' AND '2021-09-30 23:59:59.998' AND case_number is NOT NULL;
+
+SELECT COUNT(case_number) AS Q4_2021_Case_Total
+FROM `bigquery-public-data.chicago_crime.crime`
+WHERE date BETWEEN '2021-10-01' AND '2021-12-31 23:59:59.998' AND case_number is NOT NULL;
+
+-- 2018 Arrests, Quarterly
+
+SELECT COUNT(arrest) AS Q1_2018_Arrests
+FROM `bigquery-public-data.chicago_crime.crime`
+WHERE arrest=TRUE AND 
+date BETWEEN '2018-01-01' AND '2018-03-31 23:59:59.998' AND case_number is NOT NULL;
+
+SELECT COUNT(arrest) AS Q2_2018_Arrests
+FROM `bigquery-public-data.chicago_crime.crime`
+WHERE arrest=TRUE AND 
+date BETWEEN '2018-04-01' AND '2018-06-30 23:59:59.998' AND case_number is NOT NULL;
+
+SELECT COUNT(arrest) AS Q3_2018_Arrests
+FROM `bigquery-public-data.chicago_crime.crime`
+WHERE arrest=TRUE AND 
+date BETWEEN '2018-07-01' AND '2018-09-30 23:59:59.998' AND case_number is NOT NULL;
+
+SELECT COUNT(arrest) AS Q4_2018_Arrests
+FROM `bigquery-public-data.chicago_crime.crime`
+WHERE arrest=TRUE AND 
+date BETWEEN '2018-10-01' AND '2018-12-31 23:59:59.998' AND case_number is NOT NULL;
+
+-- 2019 Arrests, Quarterly
+
+SELECT COUNT(arrest) AS Q1_2019_Arrests
+FROM `bigquery-public-data.chicago_crime.crime`
+WHERE arrest=TRUE AND 
+date BETWEEN '2019-01-01' AND '2019-03-31 23:59:59.998' AND case_number is NOT NULL;
+
+SELECT COUNT(arrest) AS Q2_2019_Arrests
+FROM `bigquery-public-data.chicago_crime.crime`
+WHERE arrest=TRUE AND 
+date BETWEEN '2019-04-01' AND '2019-06-30 23:59:59.998' AND case_number is NOT NULL;
+
+SELECT COUNT(arrest) AS Q3_2019_Arrests
+FROM `bigquery-public-data.chicago_crime.crime`
+WHERE arrest=TRUE AND 
+date BETWEEN '2019-07-01' AND '2019-09-30 23:59:59.998' AND case_number is NOT NULL;
+
+SELECT COUNT(arrest) AS Q4_2019_Arrests
+FROM `bigquery-public-data.chicago_crime.crime`
+WHERE arrest=TRUE AND 
+date BETWEEN '2019-10-01' AND '2019-12-31 23:59:59.998' AND case_number is NOT NULL;
+
+-- 2020 Arrests, Quarterly
+
+SELECT COUNT(arrest) AS Q1_2020_Arrests 
+FROM `bigquery-public-data.chicago_crime.crime`
+WHERE arrest=TRUE AND 
+date BETWEEN '2020-01-01' AND '2020-03-31 23:59:59.998' AND case_number is NOT NULL;
+
+SELECT COUNT(arrest) AS Q2_2020_Arrests 
+FROM `bigquery-public-data.chicago_crime.crime`
+WHERE arrest=TRUE AND 
+date BETWEEN '2020-04-01' AND '2020-06-30 23:59:59.998' AND case_number is NOT NULL;
+
+SELECT COUNT(arrest) AS Q3_2020_Arrests 
+FROM `bigquery-public-data.chicago_crime.crime`
+WHERE arrest=TRUE AND 
+date BETWEEN '2020-07-01' AND '2020-09-30 23:59:59.998' AND case_number is NOT NULL;
+
+SELECT COUNT(arrest) AS Q4_2020_Arrests 
+FROM `bigquery-public-data.chicago_crime.crime`
+WHERE arrest=TRUE AND 
+date BETWEEN '2020-10-01' AND '2020-12-31 23:59:59.998' AND case_number is NOT NULL;
+
+-- 2021 Arrests, Quarterly
+
+SELECT COUNT(arrest) AS Q1_2021_Arrests 
+FROM `bigquery-public-data.chicago_crime.crime`
+WHERE arrest=TRUE AND 
+date BETWEEN '2021-01-01' AND '2021-03-31 23:59:59.998' AND case_number is NOT NULL;
+
+SELECT COUNT(arrest) AS Q2_2021_Arrests 
+FROM `bigquery-public-data.chicago_crime.crime`
+WHERE arrest=TRUE AND 
+date BETWEEN '2021-04-01' AND '2021-06-30 23:59:59.998' AND case_number is NOT NULL;
+
+SELECT COUNT(arrest) AS Q3_2021_Arrests 
+FROM `bigquery-public-data.chicago_crime.crime`
+WHERE arrest=TRUE AND 
+date BETWEEN '2021-07-01' AND '2021-09-30 23:59:59.998' AND case_number is NOT NULL;
+
+SELECT COUNT(arrest) AS Q4_2021_Arrests 
+FROM `bigquery-public-data.chicago_crime.crime`
+WHERE arrest=TRUE AND 
+date BETWEEN '2021-10-01' AND '2021-12-31 23:59:59.998' AND case_number is NOT NULL;
+
+-- 2018 Domestic, Quarterly
+
+SELECT COUNT(domestic) AS Q1_2018_domestic
+FROM `bigquery-public-data.chicago_crime.crime`
+WHERE domestic=TRUE AND 
+date BETWEEN '2018-01-01' AND '2018-03-31 23:59:59.998' AND case_number is NOT NULL;
+
+SELECT COUNT(domestic) AS Q2_2018_domestic
+FROM `bigquery-public-data.chicago_crime.crime`
+WHERE domestic=TRUE AND 
+date BETWEEN '2018-04-01' AND '2018-06-30 23:59:59.998' AND case_number is NOT NULL;
+
+SELECT COUNT(domestic) AS Q3_2018_domestic
+FROM `bigquery-public-data.chicago_crime.crime`
+WHERE domestic=TRUE AND 
+date BETWEEN '2018-07-01' AND '2018-09-30 23:59:59.998' AND case_number is NOT NULL;
+
+SELECT COUNT(domestic) AS Q4_2018_domestic
+FROM `bigquery-public-data.chicago_crime.crime`
+WHERE domestic=TRUE AND 
+date BETWEEN '2018-10-01' AND '2018-12-31 23:59:59.998' AND case_number is NOT NULL;
+
+-- 2019 Domestic, Quarterly
+
+SELECT COUNT(domestic) AS Q1_2019_domestic
+FROM `bigquery-public-data.chicago_crime.crime`
+WHERE domestic=TRUE AND 
+date BETWEEN '2019-01-01' AND '2019-03-31 23:59:59.998' AND case_number is NOT NULL;
+
+SELECT COUNT(domestic) AS Q2_2019_domestic
+FROM `bigquery-public-data.chicago_crime.crime`
+WHERE domestic=TRUE AND 
+date BETWEEN '2019-04-01' AND '2019-06-30 23:59:59.998' AND case_number is NOT NULL;
+
+SELECT COUNT(domestic) AS Q3_2019_domestic
+FROM `bigquery-public-data.chicago_crime.crime`
+WHERE domestic=TRUE AND  
+date BETWEEN '2019-07-01' AND '2019-09-30 23:59:59.998' AND case_number is NOT NULL;
+
+SELECT COUNT(domestic) AS Q4_2019_domestic
+FROM `bigquery-public-data.chicago_crime.crime`
+WHERE domestic=TRUE AND 
+date BETWEEN '2019-10-01' AND '2019-12-31 23:59:59.998' AND case_number is NOT NULL;
+
+-- 2020 Domestic, Quarterly
+
+SELECT COUNT(domestic) AS Q1_2020_domestic
+FROM `bigquery-public-data.chicago_crime.crime`
+WHERE domestic=TRUE AND 
+date BETWEEN '2020-01-01' AND '2020-03-31 23:59:59.998' AND case_number is NOT NULL;
+
+SELECT COUNT(domestic) AS Q2_2020_domestic
+FROM `bigquery-public-data.chicago_crime.crime`
+WHERE domestic=TRUE AND 
+date BETWEEN '2020-04-01' AND '2020-06-30 23:59:59.998' AND case_number is NOT NULL;
+
+SELECT COUNT(domestic) AS Q3_2020_domestic
+FROM `bigquery-public-data.chicago_crime.crime`
+WHERE domestic=TRUE AND 
+date BETWEEN '2020-07-01' AND '2020-09-30 23:59:59.998' AND case_number is NOT NULL;
+
+SELECT COUNT(domestic) AS Q4_2020_domestic
+FROM `bigquery-public-data.chicago_crime.crime`
+WHERE domestic=TRUE AND 
+date BETWEEN '2020-10-01' AND '2020-12-31 23:59:59.998' AND case_number is NOT NULL;
+
+-- 2021 Domestic, Quarterly
+
+SELECT COUNT(domestic) AS Q1_2021_domestic
+FROM `bigquery-public-data.chicago_crime.crime`
+WHERE domestic=TRUE AND 
+date BETWEEN '2021-01-01' AND '2021-03-31 23:59:59.998' AND case_number is NOT NULL;
+
+SELECT COUNT(domestic) AS Q2_2021_domestic
+FROM `bigquery-public-data.chicago_crime.crime`
+WHERE domestic=TRUE AND 
+date BETWEEN '2021-04-01' AND '2021-06-30 23:59:59.998' AND case_number is NOT NULL;
+
+SELECT COUNT(domestic) AS Q3_2021_domestic
+FROM `bigquery-public-data.chicago_crime.crime`
+WHERE domestic=TRUE AND 
+date BETWEEN '2021-07-01' AND '2021-09-30 23:59:59.998' AND case_number is NOT NULL;
+
+SELECT COUNT(domestic) AS Q4_2021_domestic
+FROM `bigquery-public-data.chicago_crime.crime`
+WHERE domestic=TRUE AND 
+date BETWEEN '2021-10-01' AND '2021-12-31 23:59:59.998' AND case_number is NOT NULL;
