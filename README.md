@@ -7,4 +7,4 @@ Having recently moved from Chicago to rural Illinois, I was particularly curious
 
 The seasonal crime data is another amalgamation of case count totals extracted from the same dataset.  The window for this data is much smaller, a four year window, that I wanted to examine relative to the COVID-19 pandemic.
 
-My slide-deck of insights is [available to view](https://docs.google.com/presentation/d/1EkEKL4w-sio-vKzuiF7SLnXQOpgo1582otBITb4PNwU/edit?usp=sharing) if you're curious, but the trends are pretty robust here.
+My slide-deck of insights is [available to view](https://docs.google.com/presentation/d/1EkEKL4w-sio-vKzuiF7SLnXQOpgo1582otBITb4PNwU/edit?usp=sharing)
